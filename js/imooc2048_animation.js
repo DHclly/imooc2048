@@ -9,8 +9,8 @@ function showNumWithAnimation (i,j,randNum) {
 	NumCell.animate({
 		width:"100px",
 		height:"100px",
-		top:getPosTop(i,j),
-		left:getPosLeft(i,j)
-	},200);
+		top:getPosTop(i),
+		left:getPosLeft(j)
+	},400);
 }
 

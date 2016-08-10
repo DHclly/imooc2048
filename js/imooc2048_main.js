@@ -11,8 +11,8 @@ function newGame() {
 	initLayout();
 	initBoardModel();
 	updateBoardView();
-	//	generateOneNumber();
-	//	generateOneNumber();
+	generateOneNumber();
+	generateOneNumber();
 }
 
 /**
@@ -23,8 +23,8 @@ function initLayout() {
 		for(var j = 0; j < 4; j++) {
 			var gridCell = $('<div class = "grid-cell" id = "grid-cell-' + i + '-' + j + '" ></div>');
 			gridCell.css({
-				"top": getPosTop(i, j) + "px",
-				"left": getPosLeft(i, j) + "px"
+				"top": getPosTop(i) + "px",
+				"left": getPosLeft(j) + "px"
 			});
 			$("#grid-container").append(gridCell);
 		}
@@ -42,28 +42,36 @@ function initBoardModel() {
 	}
 }
 
+/**
+ * 更新视图的方法
+ * 用户每次操作都会执行该方法，因此，要考虑所有情况
+ */
 function updateBoardView() {
+	//清除之前所有的数据
 	$(".number-cell").remove();
 	for(var i = 0; i < 4; i++) {
 		for(var j = 0; j < 4; j++) {
 			var numberCell = $('<div class="number-cell" id="number-cell-' + i + '-' + j + '"></div>');
-			if(boardModel[i][j] == 0) {
+			var cell = boardModel[i][j];
+			//如果是默认值，不显示
+			if(cell == 0) {
 				numberCell.css({
 					"width": "0",
 					"height": "0",
-					"top": getPosTop(i, j) + 50 + "px",
-					"left": getPosLeft(i, j) + 50 + "px"
+					//让数字居中
+					"top": getPosTop(i) + 50 + "px",
+					"left": getPosLeft(j) + 50 + "px"
 				});
 			} else {
 				numberCell.css({
 					"width": "100px",
 					"height": "100px",
-					"top": getPosTop(i, j) + "px",
-					"left": getPosLeft(i, j) + "px",
-					"background-color": getNumberBackgroundColor(board(i, j)),
-					"color": getNumberColor(board(i, j)),
+					"top": getPosTop(i) + "px",
+					"left": getPosLeft(j) + "px",
+					"background-color": getNumberBackgroundColor(cell),
+					"color": getNumberColor(cell),
 				});
-				numberCell.text(boardModel[i][j]);
+				numberCell.text(cell);
 			}
 			$("#grid-container").append(numberCell);
 		}
@@ -71,23 +79,23 @@ function updateBoardView() {
 }
 
 function generateOneNumber() {
-	if(noSpace(board)) {
+	//判断是否还有空间生成数字
+	if(noSpace(boardModel)) {
 		return false;
 	}
 
 	var randX = Math.floor(Math.random() * 4);
 	var randY = Math.floor(Math.random() * 4);
 	while(true) {
-		if(board[randX][randY] == 0) {
+		if(boardModel[randX][randY] == 0) {
 			break;
 		}
 		randX = Math.floor(Math.random() * 4);
 		randY = Math.floor(Math.random() * 4);
 	}
 
-	var randNum = Math.random() < 0.4 ? 2 : 4;
-	board[randX][randY] = randNum;
-	//console.log("X:" + randX + ",Y:" + randY + ":" + randNum);
+	var randNum = Math.random() < 0.6 ? 2 : 4;
+	boardModel[randX][randY] = randNum;
 	showNumWithAnimation(randX, randY, randNum);
 	return true;
 }
