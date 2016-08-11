@@ -16,6 +16,7 @@ function newGame() {
 	updateBoardView();
 	generateOneNumber();
 	generateOneNumber();
+	initGameKeyDown();
 }
 
 /**
@@ -103,6 +104,9 @@ function generateOneNumber() {
 	return true;
 }
 
+/**
+ * 初始化按键事件
+ */
 function initGameKeyDown() {
 	$(document).keydown(function(event) {
 		switch(event.keyCode) {
@@ -113,19 +117,19 @@ function initGameKeyDown() {
 				}
 				break;
 			case 38: //up
-				if(moveUp()) {
+				if(moveUp(boardModel)) {
 					generateOneNumber();
 					isGameOver();
 				}
 				break;
 			case 39: //right
-				if(moveRight()) {
+				if(moveRight(boardModel)) {
 					generateOneNumber();
 					isGameOver();
 				}
 				break;
 			case 40: //down
-				if(moveDown()) {
+				if(moveDown(boardModel)) {
 					generateOneNumber();
 					isGameOver();
 				}

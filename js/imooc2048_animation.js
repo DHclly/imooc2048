@@ -30,5 +30,5 @@ function showMoveAnimation(fromX, fromY, toX, toY) {
 	numberCell.animate({
 		top: getPosTop(toX),
 		left: getPosLeft(toY)
-	}, 200)
+	}, 600)
 }
