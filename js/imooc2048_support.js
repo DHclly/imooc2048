@@ -96,10 +96,10 @@ function moveLeft(boardModel) {
 						continue;
 					} 
 					//如果左侧的格子不为空并和当前格子的值相等，且无障碍，则向左移动，然后合并相加
-					else if(board[i][k] == board[i][j] || noBlockHorizontal(i, k, j, board)) {
+					else if(boardModel[i][k] == boardModel[i][j] || noBlockHorizontal(i, k, j, boardModel)) {
 						showMoveAnimation(i, j, i, k);
-						board[i][k] += board[i][j];
-						board[i][j] = 0;
+						boardModel[i][k] += boardModel[i][j];
+						boardModel[i][j] = 0;
 						continue;
 					}
 				}
@@ -241,26 +241,12 @@ function canMoveDown(board) {
  * @param {Object} col2
  * @param {Object} board
  */
-function noBlockHorizontal(row, col1, col2, board) {
+function noBlockHorizontal(row, col1, col2, boardModel) {
 	for(var i = col1 + 1; i < col2; i++) {
 		//如果有不为0的，即有障碍
-		if(board[row][i] != 0) {
+		if(boardModel[row][i] != 0) {
 			return false;
 		}
 		return true;
 	}
-}
-
-/**
- * @param {Object} fromX
- * @param {Object} fromY
- * @param {Object} toX
- * @param {Object} toY
- */
-function showMoveAnimation(fromX, fromY, toX, toY) {
-	var numberCell = $('#number-cell-' + fromX + '-' + fromY);
-	numberCell.animate({
-		top: getPosTop(toX, toY),
-		left: getPosLeft(toX, toY)
-	}, 200)
 }
