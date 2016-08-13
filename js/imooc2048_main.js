@@ -1,4 +1,4 @@
-//游戏model
+//游戏棋盘格model
 var boardModel = [];
 //游戏分数
 var score = 0;
@@ -112,7 +112,7 @@ function initGameKeyDown() {
 		switch(event.keyCode) {
 			case 37: //left
 				if(moveLeft(boardModel)) {
-					generateOneNumber();
+					setTimeout(generateOneNumber,400);
 					isGameOver();
 				}
 				break;
@@ -124,7 +124,7 @@ function initGameKeyDown() {
 				break;
 			case 39: //right
 				if(moveRight(boardModel)) {
-					generateOneNumber();
+					setTimeout(generateOneNumber,400);
 					isGameOver();
 				}
 				break;

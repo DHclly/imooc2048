@@ -75,7 +75,11 @@ function noSpace(boardModel) {
 	}
 	return true;
 }
-
+function noMove (boardModel) {
+	if(canMoveLeft(boardModel)&&canMoveRight(boardModel)&&canMoveUp(boardModel)&&canMoveDown(boardModel)){
+		
+	}
+}
 /**
  * 执行向左移动的操作
  * @param {Object} boardModel
@@ -92,7 +96,7 @@ function moveLeft(boardModel) {
 			if(boardModel[i][j] != 0) {
 				//遍历当前格子的左侧的每一个格子，看是否可以向左移动
 				for(var k = 0; k < j; k++) {
-					//如果左侧的格子为空，且无障碍，则向左移动
+					//如果左侧的格子为空，且无障碍，则向左移动 
 					if(boardModel[i][k] == 0 && noBlockHorizontal(i, k, j, boardModel)) {
 						showMoveAnimation(i, j, i, k);
 						boardModel[i][k] = boardModel[i][j];
@@ -110,7 +114,7 @@ function moveLeft(boardModel) {
 			}
 		}
 	}
-	updateBoardView();
+	setTimeout(updateBoardView, 400);
 	return true;
 }
 
@@ -147,7 +151,7 @@ function moveRight(boardModel) {
 			//如果当前格子有值
 			if(boardModel[i][j] != 0) {
 				//遍历当前格子的右侧的每一个格子，看是否可以向右移动
-				for(var k = j+1; k < 4; k++) {
+				for(var k = 3; k > j; k--) {
 					//如果右侧的格子为空，且无障碍，则向右移动
 					if(boardModel[i][k] == 0 && noBlockHorizontal(i, j, k, boardModel)) {
 						showMoveAnimation(i, j, i, k);
@@ -156,7 +160,7 @@ function moveRight(boardModel) {
 						continue;
 					}
 					//如果右侧的格子不为空并和当前格子的值相等，且无障碍，则向右移动，然后合并相加
-					else if(boardModel[i][k] == boardModel[i][j] || noBlockHorizontal(i, j, k, boardModel)) {
+					else if(boardModel[i][k] == boardModel[i][j] && noBlockHorizontal(i, j, k, boardModel)) {
 						showMoveAnimation(i, j, i, k);
 						boardModel[i][k] += boardModel[i][j];
 						boardModel[i][j] = 0;
@@ -166,7 +170,7 @@ function moveRight(boardModel) {
 			}
 		}
 	}
-	updateBoardView();
+	setTimeout(updateBoardView, 400);
 	return true;
 }
 
@@ -188,60 +192,55 @@ function canMoveRight(boardModel) {
 	}
 	return false;
 }
-
-function moveUp() {
-	if(!canMoveUp(boardModel)) {
+/**
+ * 执行向上移动的操作
+ * @param {Object} boardModel
+ */
+function moveUp(boardModel) {
+	if(!canMoveRight(boardModel)) {
 		return false;
 	}
-	for(var i = 0; i < 4; i++) {
-		for(var j = 1; j < 4; j++) {
+	//可以向上移动的时候
+	//排除最上一列
+	for(var i = 1; i < 4; i++) {
+		for(var j = 0; j < 4; j++) {
+			//如果当前格子有值
 			if(boardModel[i][j] != 0) {
-				for(var k = 0; k < j; k++) {
-					if(boardModel[i][k] == 0 && noBlockHorizontal(i, k, j, boardModel)) {
-
+				//遍历当前格子的上侧的每一个格子，看是否可以向上移动
+				for(var k = 0; k < i; k++) {
+					//如果上侧的格子为空，且无障碍，则向上移动
+					if(boardModel[k][j] == 0 && noBlockVertical(k, i, j, boardModel)) {
+						showMoveAnimation(i, j, k, j);
+						boardModel[k][j] = boardModel[i][j];
+						boardModel[i][j] = 0;
 						continue;
-					} else if(boardModel[i][k] == boardModel[i][j] || noBlockHorizontal(i, k, j, boardModel)) {
-
+					}
+					//如果上侧的格子不为空并和当前格子的值相等，且无障碍，则向上移动，然后合并相加
+					else if(boardModel[k][j] == boardModel[k][j] && noBlockVertical(k, i, j, boardModel)) {
+						showMoveAnimation(i, j, k, j);
+						boardModel[k][j] += boardModel[i][j];
+						boardModel[i][j] = 0;
 						continue;
 					}
 				}
 			}
 		}
 	}
+	setTimeout(updateBoardView, 400);
 	return true;
 }
 
-function moveDown() {
-	if(!canMoveDown(boardModel)) {
-		return false;
-	}
-	for(var i = 0; i < 4; i++) {
-		for(var j = 1; j < 4; j++) {
-			if(boardModel[i][j] != 0) {
-				for(var k = 0; k < j; k++) {
-					if(boardModel[i][k] == 0 && noBlockHorizontal(i, k, j, boardModel)) {
-
-						continue;
-					} else if(boardModel[i][k] == boardModel[i][j] || noBlockHorizontal(i, k, j, boardModel)) {
-
-						continue;
-					}
-				}
-			}
-		}
-	}
-	return true;
-}
-
-function isGameOver() {
-
-}
-
+/**
+ * 判断当前能否向上移动
+ * @param {Object} boardModel
+ */
 function canMoveUp(boardModel) {
-	for(var i = 0; i < 4; i++) {
-		for(var j = 1; j < 4; j++) {
+	//排除最上一列
+	for(var i = 1; i < 4; i++) {
+		for(var j = 0; j < 4; j++) {
 			if(boardModel[i][j] != 0) {
-				if(boardModel[i][j - 1] == 0 || boardModel[i][j] == boardModel[i][j - 1]) {
+				//判断当前格子上侧是否为空，或者上侧的值等于当前格子的值
+				if(boardModel[i - 1][j] == 0 || boardModel[i][j] == boardModel[i - 1][j]) {
 					return true;
 				}
 			}
@@ -250,17 +249,67 @@ function canMoveUp(boardModel) {
 	return false;
 }
 
-function canMoveDown(boardModel) {
-	for(var i = 0; i < 4; i++) {
-		for(var j = 1; j < 4; j++) {
+/**
+ * 执行向上移动的操作
+ * @param {Object} boardModel
+ */
+function moveDown(boardModel) {
+	if(!canMoveRight(boardModel)) {
+		return false;
+	}
+	//可以向上移动的时候
+	//排除最上一列
+	for(var i = 0; i < 3; i++) {
+		for(var j = 0; j < 4; j++) {
+			//如果当前格子有值
 			if(boardModel[i][j] != 0) {
-				if(boardModel[i][j - 1] == 0 || boardModel[i][j] == boardModel[i][j - 1]) {
+				//遍历当前格子的上侧的每一个格子，看是否可以向上移动
+				for(var k = i+1; k < 4; k++) {
+					//如果上侧的格子为空，且无障碍，则向上移动
+					if(boardModel[k][j] == 0 && noBlockVertical(k, i, j, boardModel)) {
+						showMoveAnimation(i, j, k, j);
+						boardModel[k][j] = boardModel[i][j];
+						boardModel[i][j] = 0;
+						continue;
+					}
+					//如果上侧的格子不为空并和当前格子的值相等，且无障碍，则向上移动，然后合并相加
+					else if(boardModel[k][j] == boardModel[k][j] && noBlockVertical(k, i, j, boardModel)) {
+						showMoveAnimation(i, j, k, j);
+						boardModel[k][j] += boardModel[i][j];
+						boardModel[i][j] = 0;
+						continue;
+					}
+				}
+			}
+		}
+	}
+	setTimeout(updateBoardView, 400);
+	return true;
+}
+
+/**
+ * 判断当前能否向下移动
+ * @param {Object} boardModel
+ */
+function canMoveDown(boardModel) {
+	//排除最下一列
+	for(var i = 0; i < 3; i++) {
+		for(var j = 0; j < 4; j++) {
+			if(boardModel[i][j] != 0) {
+				//判断当前格子下侧是否为空，或者下侧的值等于当前格子的值
+				if(boardModel[i + 1][j] == 0 || boardModel[i][j] == boardModel[i + 1][j]) {
 					return true;
 				}
 			}
 		}
 	}
 	return false;
+}
+
+function isGameOver(boardModel) {
+	if(noSpace(boardModel)&&noMove(boardModel)){
+		gameOver();
+	}
 }
 
 /**
@@ -276,6 +325,22 @@ function noBlockHorizontal(row, colStart, colEnd, boardModel) {
 		if(boardModel[row][i] != 0) {
 			return false;
 		}
-		return true;
 	}
+	return true;
+}
+/**
+ * 判断垂直方向，两个格子之间是否有其他非0格子
+ * @param {Object} rowStart
+ * @param {Object} rowEnd
+ * @param {Object} col
+ * @param {Object} boardModel
+ */
+function noBlockVertical(rowStart, rowEnd, col, boardModel) {
+	for(var i = rowStart + 1; i < rowEnd; i++) {
+		//如果有不为0的，即有障碍
+		if(boardModel[i][col] != 0) {
+			return false;
+		}
+	}
+	return true;
 }
