@@ -118,7 +118,7 @@ function initGameKeyDown() {
 				break;
 			case 38: //up
 				if(moveUp(boardModel)) {
-					generateOneNumber();
+					setTimeout(generateOneNumber,400);
 					isGameOver();
 				}
 				break;
@@ -131,6 +131,7 @@ function initGameKeyDown() {
 			case 40: //down
 				if(moveDown(boardModel)) {
 					generateOneNumber();
+					setTimeout(generateOneNumber,400);
 					isGameOver();
 				}
 				break;
