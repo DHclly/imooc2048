@@ -16,7 +16,7 @@ function showNumWithAnimation (i,j,randNum) {
 		height:"100px",
 		top:getPosTop(i),
 		left:getPosLeft(j)
-	},400);
+	},50);
 }
 
 /**
