@@ -34,3 +34,7 @@ function showMoveAnimation(fromX, fromY, toX, toY) {
 		left: getPosLeft(toY)
 	}, 200);
 }
+
+function updateScoreView (score) {
+	$("#score").fadeOut('fast').text(score).fadeIn('fast');
+}

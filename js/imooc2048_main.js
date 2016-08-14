@@ -17,6 +17,7 @@ function newGame() {
 	generateOneNumber();
 	generateOneNumber();
 	initGameKeyDown();
+	initScore();
 }
 
 /**
@@ -138,4 +139,8 @@ function initGameKeyDown() {
 				break;
 		}
 	});
+}
+
+function initScore () {
+	score = 0;
 }

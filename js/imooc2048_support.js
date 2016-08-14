@@ -110,6 +110,8 @@ function moveLeft(boardModel) {
 						showMoveAnimation(i, j, i, k);
 						boardModel[i][k] *= 2;
 						boardModel[i][j] = 0;
+						score +=boardModel[i][k];
+						updateScoreView(score);
 						continue;
 					}
 				}
@@ -166,6 +168,8 @@ function moveRight(boardModel) {
 						showMoveAnimation(i, j, i, k);
 						boardModel[i][k] *= 2;
 						boardModel[i][j] = 0;
+						score +=boardModel[i][k];
+						updateScoreView(score);
 						continue;
 					}
 				}
@@ -222,6 +226,8 @@ function moveUp(boardModel) {
 						showMoveAnimation(i, j, k, j);
 						boardModel[k][j] *= 2;
 						boardModel[i][j] = 0;
+						score +=boardModel[k][j];
+						updateScoreView(score);
 						continue;
 					}
 				}
@@ -279,6 +285,8 @@ function moveDown(boardModel) {
 						showMoveAnimation(i, j, k, j);
 						boardModel[k][j] *= 2;
 						boardModel[i][j] = 0;
+						score+=boardModel[k][j];
+						updateScoreView(score);
 						continue;
 					}
 				}
