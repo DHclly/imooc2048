@@ -76,9 +76,10 @@ function noSpace(boardModel) {
 	return true;
 }
 function noMove (boardModel) {
-	if(canMoveLeft(boardModel)&&canMoveRight(boardModel)&&canMoveUp(boardModel)&&canMoveDown(boardModel)){
-		
+	if(canMoveLeft(boardModel)||canMoveRight(boardModel)||canMoveUp(boardModel)||canMoveDown(boardModel)){
+		return false;
 	}
+	return true;
 }
 /**
  * 执行向左移动的操作
@@ -307,12 +308,6 @@ function canMoveDown(boardModel) {
 	return false;
 }
 
-function isGameOver(boardModel) {
-	if(noSpace(boardModel)&&noMove(boardModel)){
-		gameOver();
-	}
-}
-
 /**
  * 判断水平方向，两个格子之间是否有其他非0格子
  * @param {Object} row
@@ -344,4 +339,14 @@ function noBlockVertical(rowStart, rowEnd, col, boardModel) {
 		}
 	}
 	return true;
+}
+
+function isGameOver(boardModel) {
+	if(noSpace(boardModel)&&noMove(boardModel)){
+		gameOver();
+	}
+}
+
+function gameOver () {
+	alert("gameover.")
 }

@@ -112,27 +112,26 @@ function initGameKeyDown() {
 		switch(event.keyCode) {
 			case 37: //left
 				if(moveLeft(boardModel)) {
-					setTimeout(generateOneNumber,400);
-					isGameOver();
+					setTimeout(generateOneNumber,210);
+					setTimeout(isGameOver,300);
 				}
 				break;
 			case 38: //up
 				if(moveUp(boardModel)) {
-					setTimeout(generateOneNumber,400);
-					isGameOver();
+					setTimeout(generateOneNumber,210);
+					setTimeout(isGameOver,300);
 				}
 				break;
 			case 39: //right
 				if(moveRight(boardModel)) {
-					setTimeout(generateOneNumber,400);
-					isGameOver();
+					setTimeout(generateOneNumber,210);
+					setTimeout(isGameOver,300);
 				}
 				break;
 			case 40: //down
 				if(moveDown(boardModel)) {
-					generateOneNumber();
-					setTimeout(generateOneNumber,400);
-					isGameOver();
+					setTimeout(generateOneNumber,210);
+					setTimeout(isGameOver,300);
 				}
 				break;
 			default:
