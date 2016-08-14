@@ -106,7 +106,7 @@ function moveLeft(boardModel) {
 						continue;
 					}
 					//如果左侧的格子不为空并和当前格子的值相等，且无障碍，则向左移动，然后合并相加
-					else if(boardModel[i][k] == boardModel[i][j] || noBlockHorizontal(i, k, j, boardModel)) {
+					else if(boardModel[i][k] == boardModel[i][j] && noBlockHorizontal(i, k, j, boardModel)) {
 						showMoveAnimation(i, j, i, k);
 						boardModel[i][k] *= 2;
 						boardModel[i][j] = 0;
@@ -183,7 +183,7 @@ function moveRight(boardModel) {
 function canMoveRight(boardModel) {
 	for(var i = 0; i < 4; i++) {
 		//排除最右一列
-		for(var j = 2; j >= 0; j++) {
+		for(var j = 2; j >= 0; j--) {
 			if(boardModel[i][j] != 0) {
 				//判断当前格子右侧是否为空，或者右侧的值等于当前格子的值
 				if(boardModel[i][j + 1] == 0 || boardModel[i][j] == boardModel[i][j + 1]) {
@@ -204,8 +204,8 @@ function moveUp(boardModel) {
 	}
 	//可以向上移动的时候
 	//排除最上一列
-	for(var j = 0; j < 4; j++) {
-		for(var i = 1; i < 4; i++) {
+	for(var i = 1; i < 4; i++) {
+		for(var j = 0; j < 4; j++) {
 			//如果当前格子有值
 			if(boardModel[i][j] != 0) {
 				//遍历当前格子的上侧的每一个格子，看是否可以向上移动
@@ -238,8 +238,8 @@ function moveUp(boardModel) {
  */
 function canMoveUp(boardModel) {
 	//排除最上一列
-	for(var j = 0; j < 4; j++) {
-		for(var i = 1; i < 4; i++) {
+	for(var i = 1; i < 4; i++) {
+		for(var j = 0; j < 4; j++) {
 			if(boardModel[i][j] != 0) {
 				//判断当前格子上侧是否为空，或者上侧的值等于当前格子的值
 				if(boardModel[i - 1][j] == 0 || boardModel[i][j] == boardModel[i - 1][j]) {
@@ -261,8 +261,8 @@ function moveDown(boardModel) {
 	}
 	//可以向下移动的时候
 	//排除最下一列
-	for(var j = 0; j < 4; j++) {
-		for(var i = 2; i >= 0; i--) {
+	for(var i = 2; i >= 0; i--) {
+		for(var j = 0; j < 4; j++) {
 			//如果当前格子有值
 			if(boardModel[i][j] != 0) {
 				//遍历当前格子的下侧的每一个格子，看是否可以向下移动
@@ -295,9 +295,8 @@ function moveDown(boardModel) {
  */
 function canMoveDown(boardModel) {
 	//排除最下一列
-
-	for(var j = 0; j < 4; j++) {
-		for(var i = 2; i >= 0; i--) {
+	for(var i = 2; i >= 0; i--) {
+		for(var j = 0; j < 4; j++) {
 			if(boardModel[i][j] != 0) {
 				//判断当前格子下侧是否为空，或者下侧的值等于当前格子的值
 				if(boardModel[i + 1][j] == 0 || boardModel[i][j] == boardModel[i + 1][j]) {
@@ -342,7 +341,7 @@ function noBlockVertical(rowStart, rowEnd, col, boardModel) {
 	return true;
 }
 
-function isGameOver(boardModel) {
+function isGameOver() {
 	if(noSpace(boardModel) && noMove(boardModel)) {
 		gameOver();
 	}
