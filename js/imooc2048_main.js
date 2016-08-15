@@ -96,14 +96,25 @@ function generateOneNumber() {
 
 	var randX = Math.floor(Math.random() * 4);
 	var randY = Math.floor(Math.random() * 4);
-	while(true) {
+	var i = 50;
+	while(i--) {
 		if(boardModel[randX][randY] == 0) {
 			break;
 		}
 		randX = Math.floor(Math.random() * 4);
 		randY = Math.floor(Math.random() * 4);
 	}
-
+	if(i===0){
+		for (var i = 0; i < 4; i++) {
+			for(var j = 0;j<4;j++){
+				if (boardModel[i][j]===0) {
+					randX = i;
+					randY = j;
+					break;
+				}
+			}
+		}
+	}
 	var randNum = Math.random() < 0.6 ? 2 : 4;
 	boardModel[randX][randY] = randNum;
 	showNumWithAnimation(randX, randY, randNum);
