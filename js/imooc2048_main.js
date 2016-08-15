@@ -13,6 +13,7 @@ $(function() {
 })
 
 function newGame() {
+	isMobile();
 	initLayout();
 	initCssForMobile();
 	initBoard();

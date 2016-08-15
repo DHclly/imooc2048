@@ -394,3 +394,17 @@ function initCssForMobile() {
 		borderRadius: 0.02 * cellSpaceWidth + "px"
 	});
 }
+
+
+/**
+ * 判断是否是移动端，并进行参数设定
+ */
+function isMobile () {
+	if(screenWidh > 768) {
+		gameContainerWidth = 500;
+		cellSpaceWidth = 20;
+		cellWidth = 100;
+		return false;
+	}
+	return true;
+}
