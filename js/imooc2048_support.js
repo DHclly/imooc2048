@@ -106,11 +106,12 @@ function moveLeft(boardModel) {
 						continue;
 					}
 					//如果左侧的格子不为空并和当前格子的值相等，且无障碍，则向左移动，然后合并相加
-					else if(boardModel[i][k] == boardModel[i][j] && noBlockHorizontal(i, k, j, boardModel)) {
+					else if(boardModel[i][k] == boardModel[i][j] && noBlockHorizontal(i, k, j, boardModel)&&!boardConflict[i][k]) {
 						showMoveAnimation(i, j, i, k);
 						boardModel[i][k] *= 2;
 						boardModel[i][j] = 0;
 						score +=boardModel[i][k];
+						boardConflict[i][k]=true;
 						updateScoreView(score);
 						continue;
 					}
@@ -164,11 +165,12 @@ function moveRight(boardModel) {
 						continue;
 					}
 					//如果右侧的格子不为空并和当前格子的值相等，且无障碍，则向右移动，然后合并相加
-					else if(boardModel[i][k] == boardModel[i][j] && noBlockHorizontal(i, j, k, boardModel)) {
+					else if(boardModel[i][k] == boardModel[i][j] && noBlockHorizontal(i, j, k, boardModel)&&!boardConflict[i][k]) {
 						showMoveAnimation(i, j, i, k);
 						boardModel[i][k] *= 2;
 						boardModel[i][j] = 0;
 						score +=boardModel[i][k];
+						boardConflict[i][k]=true;
 						updateScoreView(score);
 						continue;
 					}
@@ -222,11 +224,12 @@ function moveUp(boardModel) {
 						continue;
 					}
 					//如果上侧的格子不为空并和当前格子的值相等，且无障碍，则向上移动，然后合并相加
-					else if(boardModel[k][j] == boardModel[i][j] && noBlockVertical(k, i, j, boardModel)) {
+					else if(boardModel[k][j] == boardModel[i][j] && noBlockVertical(k, i, j, boardModel)&&!boardConflict[k][j]) {
 						showMoveAnimation(i, j, k, j);
 						boardModel[k][j] *= 2;
 						boardModel[i][j] = 0;
 						score +=boardModel[k][j];
+						boardConflict[k][j]=true;
 						updateScoreView(score);
 						continue;
 					}
@@ -281,11 +284,12 @@ function moveDown(boardModel) {
 						continue;
 					}
 					//如果下侧的格子不为空并和当前格子的值相等，且无障碍，则向下移动，然后合并相加
-					else if(boardModel[k][j] == boardModel[i][j] && noBlockVertical(i, k, j, boardModel)) {
+					else if(boardModel[k][j] == boardModel[i][j] && noBlockVertical(i, k, j, boardModel)&&!boardConflict[k][j]) {
 						showMoveAnimation(i, j, k, j);
 						boardModel[k][j] *= 2;
 						boardModel[i][j] = 0;
 						score+=boardModel[k][j];
+						boardConflict[k][j]=true;
 						updateScoreView(score);
 						continue;
 					}

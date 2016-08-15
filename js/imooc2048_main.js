@@ -1,5 +1,7 @@
 //游戏棋盘格model
 var boardModel = [];
+//用于判断当前格子是否合并过；
+var boardConflict = [];
 //游戏分数
 var score = 0;
 
@@ -12,7 +14,7 @@ $(function() {
 
 function newGame() {
 	initLayout();
-	initBoardModel();
+	initBoard();
 	updateBoardView();
 	generateOneNumber();
 	generateOneNumber();
@@ -37,13 +39,15 @@ function initLayout() {
 }
 
 /**
- * 初始化BoardModel每一项为0
+ * 初始化Board每一项为0
  */
-function initBoardModel() {
+function initBoard() {
 	for(var i = 0; i < 4; i++) {
 		boardModel[i] = new Array();
+		boardConflict[i] = new Array();
 		for(var j = 0; j < 4; j++)
 			boardModel[i][j] = 0;
+			boardConflict[i][j]=false;
 	}
 }
 
@@ -79,6 +83,7 @@ function updateBoardView() {
 				numberCell.text(cell);
 			}
 			$("#grid-container").append(numberCell);
+			boardConflict[i][j]=false;
 		}
 	}
 }

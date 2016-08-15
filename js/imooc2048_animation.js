@@ -36,5 +36,6 @@ function showMoveAnimation(fromX, fromY, toX, toY) {
 }
 
 function updateScoreView (score) {
-	$("#score").fadeOut('fast').text(score).fadeIn('fast');
+	//$("#score").fadeOut('fast').text(score).fadeIn('fast');
+	$("#score").text(score);
 }
