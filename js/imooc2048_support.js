@@ -1,9 +1,26 @@
+/**
+ * 屏幕宽度
+ */
+var screenWidh = $(window).width();
+/**
+ * 主体容器宽度
+ */
+var gameContainerWidth = 0.92 * screenWidh;
+/**
+ * 单元格宽度
+ */
+var cellWidth = 0.18 * screenWidh;
+/**
+ * 单元格之间间隙宽度
+ */
+var cellSpaceWidth = 0.04 * screenWidh;
+
 function getPosTop(i) {
-	return 20 + i * 120;
+	return cellSpaceWidth + i * (cellSpaceWidth + cellWidth);
 }
 
 function getPosLeft(j) {
-	return 20 + j * 120;
+	return cellSpaceWidth + j * (cellSpaceWidth + cellWidth);
 }
 
 function getNumberBackgroundColor(num) {
@@ -106,12 +123,12 @@ function moveLeft(boardModel) {
 						continue;
 					}
 					//如果左侧的格子不为空并和当前格子的值相等，且无障碍，则向左移动，然后合并相加
-					else if(boardModel[i][k] == boardModel[i][j] && noBlockHorizontal(i, k, j, boardModel)&&!boardConflict[i][k]) {
+					else if(boardModel[i][k] == boardModel[i][j] && noBlockHorizontal(i, k, j, boardModel) && !boardConflict[i][k]) {
 						showMoveAnimation(i, j, i, k);
 						boardModel[i][k] *= 2;
 						boardModel[i][j] = 0;
-						score +=boardModel[i][k];
-						boardConflict[i][k]=true;
+						score += boardModel[i][k];
+						boardConflict[i][k] = true;
 						updateScoreView(score);
 						continue;
 					}
@@ -165,12 +182,12 @@ function moveRight(boardModel) {
 						continue;
 					}
 					//如果右侧的格子不为空并和当前格子的值相等，且无障碍，则向右移动，然后合并相加
-					else if(boardModel[i][k] == boardModel[i][j] && noBlockHorizontal(i, j, k, boardModel)&&!boardConflict[i][k]) {
+					else if(boardModel[i][k] == boardModel[i][j] && noBlockHorizontal(i, j, k, boardModel) && !boardConflict[i][k]) {
 						showMoveAnimation(i, j, i, k);
 						boardModel[i][k] *= 2;
 						boardModel[i][j] = 0;
-						score +=boardModel[i][k];
-						boardConflict[i][k]=true;
+						score += boardModel[i][k];
+						boardConflict[i][k] = true;
 						updateScoreView(score);
 						continue;
 					}
@@ -224,12 +241,12 @@ function moveUp(boardModel) {
 						continue;
 					}
 					//如果上侧的格子不为空并和当前格子的值相等，且无障碍，则向上移动，然后合并相加
-					else if(boardModel[k][j] == boardModel[i][j] && noBlockVertical(k, i, j, boardModel)&&!boardConflict[k][j]) {
+					else if(boardModel[k][j] == boardModel[i][j] && noBlockVertical(k, i, j, boardModel) && !boardConflict[k][j]) {
 						showMoveAnimation(i, j, k, j);
 						boardModel[k][j] *= 2;
 						boardModel[i][j] = 0;
-						score +=boardModel[k][j];
-						boardConflict[k][j]=true;
+						score += boardModel[k][j];
+						boardConflict[k][j] = true;
 						updateScoreView(score);
 						continue;
 					}
@@ -284,12 +301,12 @@ function moveDown(boardModel) {
 						continue;
 					}
 					//如果下侧的格子不为空并和当前格子的值相等，且无障碍，则向下移动，然后合并相加
-					else if(boardModel[k][j] == boardModel[i][j] && noBlockVertical(i, k, j, boardModel)&&!boardConflict[k][j]) {
+					else if(boardModel[k][j] == boardModel[i][j] && noBlockVertical(i, k, j, boardModel) && !boardConflict[k][j]) {
 						showMoveAnimation(i, j, k, j);
 						boardModel[k][j] *= 2;
 						boardModel[i][j] = 0;
-						score+=boardModel[k][j];
-						boardConflict[k][j]=true;
+						score += boardModel[k][j];
+						boardConflict[k][j] = true;
 						updateScoreView(score);
 						continue;
 					}
@@ -361,4 +378,19 @@ function isGameOver() {
 
 function gameOver() {
 	alert("gameover.")
+}
+
+function initCssForMobile() {
+	$("#grid-container").css({
+		width: gameContainerWidth - 2 * cellSpaceWidth + "px",
+		height: gameContainerWidth - 2 * cellSpaceWidth + "px",
+		padding: cellSpaceWidth + "px",
+		borderRadius: 0.02 * gameContainerWidth + "px"
+	});
+
+	$(".grid-cell").css({
+		width: cellWidth + "px",
+		height: cellWidth + "px",
+		borderRadius: 0.02 * cellSpaceWidth + "px"
+	});
 }

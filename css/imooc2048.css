@@ -1,4 +1,3 @@
-/* line 5, C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -20,68 +19,56 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* line 22, C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 html {
   line-height: 1;
 }
 
-/* line 24, C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 ol, ul {
   list-style: none;
 }
 
-/* line 26, C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-/* line 28, C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 caption, th, td {
   text-align: left;
   font-weight: normal;
   vertical-align: middle;
 }
 
-/* line 30, C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q, blockquote {
   quotes: none;
 }
-/* line 103, C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 q:before, q:after, blockquote:before, blockquote:after {
   content: "";
   content: none;
 }
 
-/* line 32, C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 a img {
   border: none;
 }
 
-/* line 116, C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets/compass/reset/_utilities.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
   display: block;
 }
 
-/* line 2, ../sass/imooc2048.scss */
 .game {
   margin-top: 10px;
   font-family: arial;
 }
 
-/* line 6, ../sass/imooc2048.scss */
 .game-head {
   display: block;
-  width: 500px;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
 }
-/* line 11, ../sass/imooc2048.scss */
 .game-head .game-name {
-  font-size: 60px;
+  font-size: 40px;
   font-weight: bold;
 }
-/* line 15, ../sass/imooc2048.scss */
 .game-head .game-btn-newGame {
   display: block;
   margin: 10px auto;
@@ -93,17 +80,14 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   text-decoration: none;
   cursor: pointer;
 }
-/* line 25, ../sass/imooc2048.scss */
 .game-head .game-btn-newGame:hover {
   background-color: #9f8b77;
 }
-/* line 29, ../sass/imooc2048.scss */
 .game-head .game-score {
   font-size: 25px;
   margin: 20px auto;
 }
 
-/* line 34, ../sass/imooc2048.scss */
 .game-body {
   margin: 0 auto;
   width: 460px;
@@ -113,7 +97,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   border-radius: 10px;
   position: relative;
 }
-/* line 42, ../sass/imooc2048.scss */
 .game-body .grid-cell {
   width: 100px;
   height: 100px;
@@ -121,7 +104,6 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   background-color: #ccc0b3;
   position: absolute;
 }
-/* line 49, ../sass/imooc2048.scss */
 .game-body .number-cell {
   border-radius: 6px;
   font-weight: bold;

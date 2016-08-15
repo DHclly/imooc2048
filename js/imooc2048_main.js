@@ -14,6 +14,7 @@ $(function() {
 
 function newGame() {
 	initLayout();
+	initCssForMobile();
 	initBoard();
 	updateBoardView();
 	generateOneNumber();
@@ -68,13 +69,13 @@ function updateBoardView() {
 					"width": "0",
 					"height": "0",
 					//让数字居中
-					"top": getPosTop(i) + 50 + "px",
-					"left": getPosLeft(j) + 50 + "px"
+					"top": getPosTop(i) + cellWidth/2 + "px",
+					"left": getPosLeft(j) + cellWidth/2 + "px"
 				});
 			} else {
 				numberCell.css({
-					"width": "100px",
-					"height": "100px",
+					"width": cellWidth+"px",
+					"height": cellWidth+"px",
 					"top": getPosTop(i) + "px",
 					"left": getPosLeft(j) + "px",
 					"background-color": getNumberBackgroundColor(cell),
@@ -86,6 +87,10 @@ function updateBoardView() {
 			boardConflict[i][j]=false;
 		}
 	}
+	$(".number-cell").css({
+		"lineHeight":cellWidth+"px",
+		"fontSize":0.6*cellWidth+"px"
+	});
 }
 
 function generateOneNumber() {
