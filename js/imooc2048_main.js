@@ -4,7 +4,10 @@ var boardModel = [];
 var boardConflict = [];
 //游戏分数
 var score = 0;
-
+var startX = 0,
+	startY = 0,
+	endX = 0,
+	endY = 0;
 $(function() {
 	newGame();
 	$(".game-btn-newGame").bind("click", function() {
@@ -21,6 +24,7 @@ function newGame() {
 	generateOneNumber();
 	generateOneNumber();
 	initGameKeyDown();
+	initGameTouch()
 	initScore();
 }
 
@@ -49,7 +53,7 @@ function initBoard() {
 		boardConflict[i] = new Array();
 		for(var j = 0; j < 4; j++)
 			boardModel[i][j] = 0;
-			boardConflict[i][j]=false;
+		boardConflict[i][j] = false;
 	}
 }
 
@@ -70,13 +74,13 @@ function updateBoardView() {
 					"width": "0",
 					"height": "0",
 					//让数字居中
-					"top": getPosTop(i) + cellWidth/2 + "px",
-					"left": getPosLeft(j) + cellWidth/2 + "px"
+					"top": getPosTop(i) + cellWidth / 2 + "px",
+					"left": getPosLeft(j) + cellWidth / 2 + "px"
 				});
 			} else {
 				numberCell.css({
-					"width": cellWidth+"px",
-					"height": cellWidth+"px",
+					"width": cellWidth + "px",
+					"height": cellWidth + "px",
 					"top": getPosTop(i) + "px",
 					"left": getPosLeft(j) + "px",
 					"background-color": getNumberBackgroundColor(cell),
@@ -85,12 +89,12 @@ function updateBoardView() {
 				numberCell.text(cell);
 			}
 			$("#grid-container").append(numberCell);
-			boardConflict[i][j]=false;
+			boardConflict[i][j] = false;
 		}
 	}
 	$(".number-cell").css({
-		"lineHeight":cellWidth+"px",
-		"fontSize":0.6*cellWidth+"px"
+		"lineHeight": cellWidth + "px",
+		"fontSize": 0.6 * cellWidth + "px"
 	});
 }
 
@@ -110,10 +114,10 @@ function generateOneNumber() {
 		randX = Math.floor(Math.random() * 4);
 		randY = Math.floor(Math.random() * 4);
 	}
-	if(i===0){
-		for (var i = 0; i < 4; i++) {
-			for(var j = 0;j<4;j++){
-				if (boardModel[i][j]===0) {
+	if(i === 0) {
+		for(var i = 0; i < 4; i++) {
+			for(var j = 0; j < 4; j++) {
+				if(boardModel[i][j] === 0) {
 					randX = i;
 					randY = j;
 					break;
@@ -163,6 +167,58 @@ function initGameKeyDown() {
 	});
 }
 
-function initScore () {
+/**
+ * 初始化移动端手势事件
+ */
+function initGameTouch() {
+	$(document).on("touchstart", function(event) {
+				//jQuery上没有这个，只有使用原生事件
+				event = event.originalEvent;
+				startX = event.touches[0].pageX;
+				startY = event.touches[0].pageY;
+	})
+	$(document).on("touchend", function(event) {
+		event = event.originalEvent;
+		endX = event.changedTouches[0].pageX;
+		endY = event.changedTouches[0].pageY;
+
+		var xSpan = endX - startX;
+		var ySpan = endY - startY;
+		
+		//表示在x轴上运动
+		if (Math.abs(xSpan)>Math.abs(ySpan)) {
+			if (xSpan>0) {
+				//右
+				if(moveRight(boardModel)) {
+					setTimeout(generateOneNumber, 210);
+					setTimeout(isGameOver, 300);
+				}
+			}else{
+				//左
+				if(moveLeft(boardModel)) {
+					setTimeout(generateOneNumber, 210);
+					setTimeout(isGameOver, 300);
+				}
+			}
+		}else{
+			//表示在y轴上运动
+			if (ySpan>0) {
+				//下
+				if(moveDown(boardModel)) {
+					setTimeout(generateOneNumber, 210);
+					setTimeout(isGameOver, 300);
+				}
+			}else{
+				//上
+				if(moveUp(boardModel)) {
+					setTimeout(generateOneNumber, 210);
+					setTimeout(isGameOver, 300);
+				}
+			}
+		}
+	})
+}
+
+function initScore() {
 	score = 0;
 }
