@@ -180,7 +180,7 @@ function initGameTouch() {
 		event = event.originalEvent;
 		startX = event.touches[0].pageX;
 		startY = event.touches[0].pageY;
-	})
+	});
 	$(document).on("touchend", function(event) {
 		event = event.originalEvent;
 		endX = event.changedTouches[0].pageX;
@@ -221,7 +221,10 @@ function initGameTouch() {
 				}
 			}
 		}
-	})
+	});
+	$(document).on("touchmove", function(event) {
+		event.preventDefault();
+	});
 }
 
 function initScore() {
