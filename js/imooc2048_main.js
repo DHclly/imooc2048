@@ -172,43 +172,44 @@ function initGameKeyDown() {
  */
 function initGameTouch() {
 	$(document).on("touchstart", function(event) {
-				//jQuery上没有这个，只有使用原生事件
-				event = event.originalEvent;
-				startX = event.touches[0].pageX;
-				startY = event.touches[0].pageY;
+		//jQuery上没有这个，只有使用原生事件
+		event = event.originalEvent;
+		startX = event.touches[0].pageX;
+		startY = event.touches[0].pageY;
 	})
 	$(document).on("touchend", function(event) {
 		event = event.originalEvent;
 		endX = event.changedTouches[0].pageX;
 		endY = event.changedTouches[0].pageY;
-
 		var xSpan = endX - startX;
 		var ySpan = endY - startY;
-		
+		if(Math.abs(xSpan) < 0.3 * screenWidh && Math.abs(ySpan) < 0.3 * screenWidh) {
+			return;
+		}
 		//表示在x轴上运动
-		if (Math.abs(xSpan)>Math.abs(ySpan)) {
-			if (xSpan>0) {
+		if(Math.abs(xSpan) > Math.abs(ySpan)) {
+			if(xSpan > 0) {
 				//右
 				if(moveRight(boardModel)) {
 					setTimeout(generateOneNumber, 210);
 					setTimeout(isGameOver, 300);
 				}
-			}else{
+			} else {
 				//左
 				if(moveLeft(boardModel)) {
 					setTimeout(generateOneNumber, 210);
 					setTimeout(isGameOver, 300);
 				}
 			}
-		}else{
+		} else {
 			//表示在y轴上运动
-			if (ySpan>0) {
+			if(ySpan > 0) {
 				//下
 				if(moveDown(boardModel)) {
 					setTimeout(generateOneNumber, 210);
 					setTimeout(isGameOver, 300);
 				}
-			}else{
+			} else {
 				//上
 				if(moveUp(boardModel)) {
 					setTimeout(generateOneNumber, 210);
