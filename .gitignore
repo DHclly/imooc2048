@@ -1,6 +1,3 @@
-# ignore folder ./js/lib
-js/lib
-
 #ignore compass temp file
 .sass-cache
 config.rb
